@@ -43,7 +43,7 @@ namespace SnakeFirst
             InitializeComponent();
 
 
-            ball = Properties.Resources.body;
+            
             gameLoop.Tick += new EventHandler(Update);
             snakeLoop.Tick += new EventHandler(UpdateSnake);
             gameLoop.Interval = 1000 / 60;
