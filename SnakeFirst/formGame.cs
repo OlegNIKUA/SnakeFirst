@@ -34,10 +34,6 @@ namespace SnakeFirst
         #region Image
         Image ball;
         
-//        Image bodyright;
-//        Image bodydown;
-//        Image bodyup;
-//        Image bodyleft;
         #endregion
 
 
@@ -45,15 +41,7 @@ namespace SnakeFirst
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
             InitializeComponent();
-//            bodyright = Properties.Resources.body;
-//            bodydown = Properties.Resources.body2;
-//            bodyup = Properties.Resources.body3;
-//            bodyleft = Properties.Resources.body4;
-//
-//            headdown = Properties.Resources.headdown;
-//            headup = Properties.Resources.headup;
-//            headleft = Properties.Resources.headleft;
-//            headright = Properties.Resources.headright;
+
 
             ball = Properties.Resources.body;
             gameLoop.Tick += new EventHandler(Update);
