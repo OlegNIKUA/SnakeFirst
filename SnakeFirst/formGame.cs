@@ -24,6 +24,7 @@ namespace SnakeFirst
         SnakePart food;
         Timer gameLoop = new Timer();
         Timer snakeLoop = new Timer();
+        Timer time = new Timer();
         float snakeRate = 2.0f;
         private int cor = 0;
 
@@ -42,7 +43,7 @@ namespace SnakeFirst
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
             InitializeComponent();
 
-
+            
             
             gameLoop.Tick += new EventHandler(Update);
             snakeLoop.Tick += new EventHandler(UpdateSnake);
@@ -50,6 +51,9 @@ namespace SnakeFirst
             snakeLoop.Interval = (int) (1000 / snakeRate);
             gameLoop.Start();
             snakeLoop.Start();
+
+            //time.Interval = 10;
+            //time.Tick += new EventHandler(tickTimer);
             StartGame();
         }
         #endregion
@@ -92,6 +96,10 @@ namespace SnakeFirst
             GenerateFood();
         }
 
+        private void tickTimer(object sender, EventArgs e)
+        {
+            
+        }
         private void GenerateFood()
         {
             int max_tile_w = pbCanvas.Size.Width / tile_width;
@@ -265,7 +273,8 @@ namespace SnakeFirst
             }
             else
             {
-                canvas.DrawString("Score " + score.ToString(), font, Brushes.Black, new PointF(4, 4));
+                LScore.Text =" Score: " +  score.ToString();
+              //  canvas.DrawString("Score " + score.ToString(), font, Brushes.Black, new PointF(4, 4));
                 for (int i = 0; i < snake.Count; i++)
                 {
                     SnakePart segment = snake[i];
