@@ -63,9 +63,29 @@ namespace SnakeFirst.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Snake_final {
+            get {
+                object obj = ResourceManager.GetObject("Snake_final", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap snake_graphics {
             get {
                 object obj = ResourceManager.GetObject("snake_graphics", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap snake_graphics1 {
+            get {
+                object obj = ResourceManager.GetObject("snake_graphics1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

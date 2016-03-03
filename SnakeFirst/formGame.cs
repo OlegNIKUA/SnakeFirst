@@ -104,7 +104,7 @@ namespace SnakeFirst
         {
             int max_tile_w = pbCanvas.Size.Width / tile_width;
             int max_tile_h = pbCanvas.Size.Height / tile_height;
-           
+
 
             bool valid = false;
             while (!valid)
@@ -112,7 +112,7 @@ namespace SnakeFirst
                 Random random = new Random();
                 int ax = random.Next(0, max_tile_w);
                 int ay = random.Next(0, max_tile_h);
-
+                food = new SnakePart(ax, ay);
                 bool Overlap = false;
                 for (int i = 0; i > snake.Count - 1; i++)
                 {
@@ -133,7 +133,7 @@ namespace SnakeFirst
                     valid = true;
                 }
 
-                
+
 
             }
         }
@@ -260,14 +260,16 @@ namespace SnakeFirst
             Font font = this.Font;
             if (gameover)
             {
-                SizeF message = canvas.MeasureString("Gameover", font);
-                canvas.DrawString("Gameover", font, Brushes.White, new PointF(160 - message.Width/2, 100));
-                message = canvas.MeasureString("Final Score" + score.ToString(), font);
-                canvas.DrawString("Final Score " + score.ToString(), font, Brushes.White,
-                    new PointF(160 - message.Width/2, 120));
-                message = canvas.MeasureString("Press Enter to Start a New Game", font);
-                canvas.DrawString("Press Enter to Start a New Game", font, Brushes.White,
-                    new PointF(160 - message.Width/2, 140));
+                //SizeF message = canvas.MeasureString("Gameover", font);
+                //canvas.DrawString("Gameover", font, Brushes.White, new PointF(160 - message.Width/2, 100));
+                //message = canvas.MeasureString("Final Score" + score.ToString(), font);
+                //canvas.DrawString("Final Score " + score.ToString(), font, Brushes.White,
+                //    new PointF(160 - message.Width/2, 120));
+                //message = canvas.MeasureString("Press Enter to Start a New Game", font);
+                //canvas.DrawString("Press Enter to Start a New Game", font, Brushes.White,
+                //    new PointF(160 - message.Width/2, 140));
+                Rectangle recf = new Rectangle(125, 1, 600, 500);
+                canvas.DrawImage(Properties.Resources.Snake_final, recf);
 
 
             }
@@ -396,12 +398,12 @@ namespace SnakeFirst
                     }
                     Rectangle rec = new Rectangle(tx * 64, ty * 64, 64, 64);
                     
-                    canvas.DrawImage(Properties.Resources.snake_graphics.Clone(rec, System.Drawing.Imaging.PixelFormat.Format32bppArgb), tilex, tiley, tile_width, tile_height);
+                    canvas.DrawImage(Properties.Resources.snake_graphics1.Clone(rec, System.Drawing.Imaging.PixelFormat.Format32bppArgb), tilex, tiley, tile_width, tile_height);
 
                     
                 }
                 Rectangle recf = new Rectangle(0 * 64, 3 * 64, 64, 64);
-                canvas.DrawImage(Properties.Resources.snake_graphics.Clone(recf, System.Drawing.Imaging.PixelFormat.Format32bppArgb), food.X * tile_width, food.Y * tile_height, tile_width, tile_height);
+                canvas.DrawImage(Properties.Resources.snake_graphics1.Clone(recf, System.Drawing.Imaging.PixelFormat.Format32bppArgb), food.X * tile_width, food.Y * tile_height, tile_width, tile_height);
 
                 
             }
@@ -426,6 +428,11 @@ namespace SnakeFirst
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new About().ShowDialog();
+        }
+
+        private void pbCanvas_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
