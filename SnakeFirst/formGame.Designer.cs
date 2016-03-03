@@ -29,28 +29,16 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formGame));
-            this.pbCanvas = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hrToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.extToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LScore = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).BeginInit();
+            this.pbCanvas = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pbCanvas
-            // 
-            this.pbCanvas.BackColor = System.Drawing.SystemColors.Highlight;
-            this.pbCanvas.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbCanvas.BackgroundImage")));
-            this.pbCanvas.Location = new System.Drawing.Point(13, 28);
-            this.pbCanvas.Margin = new System.Windows.Forms.Padding(4);
-            this.pbCanvas.Name = "pbCanvas";
-            this.pbCanvas.Size = new System.Drawing.Size(800, 480);
-            this.pbCanvas.TabIndex = 0;
-            this.pbCanvas.TabStop = false;
-            this.pbCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pbCanvas_Paint);
             // 
             // menuStrip1
             // 
@@ -58,7 +46,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(829, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(832, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -75,36 +63,49 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // hrToolStripMenuItem
             // 
             this.hrToolStripMenuItem.Name = "hrToolStripMenuItem";
-            this.hrToolStripMenuItem.Size = new System.Drawing.Size(149, 6);
+            this.hrToolStripMenuItem.Size = new System.Drawing.Size(104, 6);
             // 
             // extToolStripMenuItem
             // 
             this.extToolStripMenuItem.Name = "extToolStripMenuItem";
-            this.extToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.extToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.extToolStripMenuItem.Text = "Ext";
             this.extToolStripMenuItem.Click += new System.EventHandler(this.extToolStripMenuItem_Click);
             // 
             // LScore
             // 
             this.LScore.AutoSize = true;
-            this.LScore.Location = new System.Drawing.Point(12, 514);
+            this.LScore.Location = new System.Drawing.Point(12, 539);
             this.LScore.Name = "LScore";
             this.LScore.Size = new System.Drawing.Size(35, 13);
             this.LScore.TabIndex = 2;
             this.LScore.Text = "Score";
             // 
+            // pbCanvas
+            // 
+            this.pbCanvas.BackColor = System.Drawing.SystemColors.Highlight;
+            this.pbCanvas.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbCanvas.BackgroundImage")));
+            this.pbCanvas.Location = new System.Drawing.Point(0, 24);
+            this.pbCanvas.Margin = new System.Windows.Forms.Padding(0);
+            this.pbCanvas.Name = "pbCanvas";
+            this.pbCanvas.Size = new System.Drawing.Size(832, 512);
+            this.pbCanvas.TabIndex = 0;
+            this.pbCanvas.TabStop = false;
+            this.pbCanvas.Click += new System.EventHandler(this.pbCanvas_Click);
+            this.pbCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pbCanvas_Paint);
+            // 
             // formGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(829, 531);
+            this.ClientSize = new System.Drawing.Size(832, 561);
             this.Controls.Add(this.LScore);
             this.Controls.Add(this.pbCanvas);
             this.Controls.Add(this.menuStrip1);
@@ -117,9 +118,9 @@
             this.Text = "formGame";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.formGame_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.formGame_KeyUp);
-            ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
