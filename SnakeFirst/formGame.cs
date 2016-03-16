@@ -9,6 +9,10 @@ using System.Media;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Media;
+using static System.Windows.Media.MediaPlayer;
+
+
 
 namespace SnakeFirst
 {
@@ -32,9 +36,10 @@ namespace SnakeFirst
         int tx = 0;
         int ty = 0;
         private bool sGame;
+        private MediaPlayer fSound;
         #endregion
 
-  
+
         public formGame()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
@@ -50,8 +55,9 @@ namespace SnakeFirst
             snakeLoop.Start();
             sGame = false;
 
+            PlayMusic();
 
-            
+
         }
         #endregion
 
@@ -105,12 +111,19 @@ namespace SnakeFirst
 
             
         }
+        #region Music
+        private void PlayMusic()
+        {
+            fSound = new System.Windows.Media.MediaPlayer();
+            fSound.Open(new System.Uri("mus.wav", System.UriKind.Relative));
+            fSound.Play();
 
-        private void playSoundFromResource()
+        }
+        private static void PlaySoundFromResource()
         {
             System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-            SoundPlayer player = new SoundPlayer("apple.wav");
-            player.Play();
+            SoundPlayer playersSoundPlayer = new SoundPlayer("apple.wav");
+            playersSoundPlayer.Play();
         }
         private void GenerateFood()
         {
@@ -150,6 +163,7 @@ namespace SnakeFirst
             }
         }
 
+        #endregion
         private void Update(object sender, EventArgs e)
         {
             if (gameover)
@@ -226,7 +240,7 @@ namespace SnakeFirst
                         // Check for collision with food
                         if (head.X == food.X && head.Y == food.Y)
                         {
-                            playSoundFromResource();
+                            PlaySoundFromResource();
                             int xcor = 0; // corecct X, + 1 or -1
                             int ycor = 0; // corecct X, + 1 or -1
                             switch (cor)
