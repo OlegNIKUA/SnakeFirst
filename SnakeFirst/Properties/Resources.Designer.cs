@@ -61,6 +61,15 @@ namespace SnakeFirst.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на  Score: .
+        /// </summary>
+        internal static string formGame_Draw__Score__ {
+            get {
+                return ResourceManager.GetString("formGame_Draw__Score__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на .
         /// </summary>
         internal static string records {
