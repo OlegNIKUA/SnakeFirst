@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace SnakeFirst
@@ -15,7 +13,7 @@ namespace SnakeFirst
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new formGame());
+            Application.Run(new FormGame());
         }
     }
 
@@ -29,6 +27,6 @@ namespace SnakeFirst
 
     static class TrackBarValue
     {
-        public static int lvlValue { get; set; }
+        public static int LvlValue { get; set; }
     }
 }

@@ -1,68 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Media;
-using System.Net;
-using System.Text;
+using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Media;
-using static System.Windows.Media.MediaPlayer;
-
-
+using SnakeFirst.Properties;
+using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
 namespace SnakeFirst
 {
-    public partial class formGame : Form
+    public partial class FormGame : Form
     {
         #region Constructor
-        #region Variables
-        int score = 0;
-        bool gameover = false;
-        int direction = 2; // 0 = down, 1 = left, 2 = right, 3 = up
-        List<SnakePart> snake = new List<SnakePart>();
-        const int tile_width = 32;
-        const int tile_height = 32;
-        SnakePart food;
-        Timer gameLoop = new Timer();
-        Timer snakeLoop = new Timer();
-        Timer time = new Timer();
-        float snakeRate = 1;
-        private int cor = 0;
 
-        int tx = 0;
-        int ty = 0;
-        private bool sGame;
-        private MediaPlayer fSound;
+        #region Variables
+
+        private int _score;
+        private bool _gameover;
+        private int _direction = 2; // 0 = down, 1 = left, 2 = right, 3 = up
+        private readonly List<SnakePart> _snake = new List<SnakePart>();
+        private const int TileWidth = 32;
+        private const int TileHeight = 32;
+        private SnakePart _food;
+        private readonly Timer _gameLoop = new Timer();
+        private readonly Timer _snakeLoop = new Timer();
+        private Timer _time = new Timer();
+        private float _snakeRate = 1;
+        private int _cor;
+
+        private int _tx;
+        private int _ty;
+        private bool _sGame;
+        private MediaPlayer _fSound;
+
         #endregion
 
-
-        public formGame()
+        public FormGame()
         {
-            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
+            SetStyle(
+                ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
             InitializeComponent();
 
-            
-            
-            gameLoop.Tick += new EventHandler(Update);
-            snakeLoop.Tick += new EventHandler(UpdateSnake);
-            gameLoop.Interval = 1000 / 60;
-            snakeLoop.Interval = (int) (1000 / snakeRate);
-            gameLoop.Start();
-            snakeLoop.Start();
-            sGame = false;
+
+            _gameLoop.Tick += Update;
+            _snakeLoop.Tick += UpdateSnake;
+            _gameLoop.Interval = 1000/60;
+            _snakeLoop.Interval = (int) (1000/_snakeRate);
+            _gameLoop.Start();
+            _snakeLoop.Start();
+            _sGame = false;
 
             PlayMusic();
-
-
         }
+
         #endregion
 
-
         #region Form Events
+
         private void formGame_KeyDown(object sender, KeyEventArgs e)
         {
             Input.ChangeState(e.KeyCode, true);
@@ -80,93 +75,90 @@ namespace SnakeFirst
 
         private void pbCanvas_Paint(object sender, PaintEventArgs e)
         {
-          
             Draw(e.Graphics);
         }
+
         #endregion
 
         #region Game Logic
 
-       
         private void StartGame()
         {
-
-            sGame = true;
-            if (TrackBarValue.lvlValue != 0)
+            _sGame = true;
+            if (TrackBarValue.LvlValue != 0)
             {
-                snakeRate = TrackBarValue.lvlValue;
+                _snakeRate = TrackBarValue.LvlValue;
             }
-            
-            gameover = false;
-            snakeLoop.Interval = (int)(1000 / snakeRate);
-            snake.Clear();
-            direction = 2;
-            score = 0;
-            SnakePart head = new SnakePart(10, 8);
-            snake.Add(head);
-            snake.Add(new SnakePart(9,8));
-            snake.Add(new SnakePart(8, 8));
-            snake.Add(new SnakePart(7, 8));
-            GenerateFood();
 
-            
+            _gameover = false;
+            _snakeLoop.Interval = (int) (1000/_snakeRate);
+            _snake.Clear();
+            _direction = 2;
+            _score = 0;
+            var head = new SnakePart(10, 8);
+            _snake.Add(head);
+            _snake.Add(new SnakePart(9, 8));
+            _snake.Add(new SnakePart(8, 8));
+            _snake.Add(new SnakePart(7, 8));
+            GenerateFood();
         }
+
         #region Music
+
         private void PlayMusic()
         {
-            fSound = new System.Windows.Media.MediaPlayer();
-            fSound.Open(new System.Uri("mus.wav", System.UriKind.Relative));
-            fSound.Play();
-
+            _fSound = new MediaPlayer();
+            _fSound.Open(new Uri("mus.wav", UriKind.Relative));
+            _fSound.Play();
         }
+
         private static void PlaySoundFromResource()
         {
-            System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-            SoundPlayer playersSoundPlayer = new SoundPlayer("apple.wav");
+            Assembly.GetExecutingAssembly();
+            var playersSoundPlayer = new SoundPlayer("apple.wav");
             playersSoundPlayer.Play();
         }
+
         private void GenerateFood()
         {
-            int max_tile_w = pbCanvas.Size.Width / tile_width;
-            int max_tile_h = pbCanvas.Size.Height / tile_height;
+            var maxTileW = pbCanvas.Size.Width/TileWidth;
+            var maxTileH = pbCanvas.Size.Height/TileHeight;
 
 
-            bool valid = false;
+            var valid = false;
             while (!valid)
             {
-                Random random = new Random();
-                int ax = random.Next(0, max_tile_w);
-                int ay = random.Next(0, max_tile_h);
-                food = new SnakePart(ax, ay);
-                bool Overlap = false;
-                for (int i = 0; i > snake.Count - 1; i++)
+                var random = new Random();
+                var ax = random.Next(0, maxTileW);
+                var ay = random.Next(0, maxTileH);
+                _food = new SnakePart(ax, ay);
+                var overlap = false;
+                for (var i = 0; i > _snake.Count - 1; i++)
                 {
-                    int sx = snake[i].X;
-                    int sy = snake[i].Y;
+                    var sx = _snake[i].X;
+                    var sy = _snake[i].Y;
 
 
                     if (ax == sx && ay == sy)
                     {
-                        Overlap = true;
+                        overlap = true;
                         break;
                     }
                 }
 
-                if (!Overlap)
+                if (!overlap)
                 {
-                    food = new SnakePart(ax, ay);
+                    _food = new SnakePart(ax, ay);
                     valid = true;
                 }
-
-
-
             }
         }
 
         #endregion
+
         private void Update(object sender, EventArgs e)
         {
-            if (gameover)
+            if (_gameover)
             {
                 if (Input.Press(Keys.Enter))
                 {
@@ -177,73 +169,72 @@ namespace SnakeFirst
             {
                 if (Input.Press(Keys.Left))
                 {
-                    if (snake.Count < 2 || snake[0].X == snake[1].X)
-                        direction = 1;
+                    if (_snake.Count < 2 || _snake[0].X == _snake[1].X)
+                        _direction = 1;
                 }
-                else if(Input.Press(Keys.Right))
+                else if (Input.Press(Keys.Right))
                 {
-                    if (snake.Count < 2 || snake[0].X == snake[1].X)
-                        direction = 2;
+                    if (_snake.Count < 2 || _snake[0].X == _snake[1].X)
+                        _direction = 2;
                 }
                 else if (Input.Press(Keys.Up))
                 {
-                    if (snake.Count < 2 || snake[0].Y == snake[1].Y)
-                        direction = 3;
+                    if (_snake.Count < 2 || _snake[0].Y == _snake[1].Y)
+                        _direction = 3;
                 }
                 else if (Input.Press(Keys.Down))
                 {
-                    if (snake.Count < 2 || snake[0].Y == snake[1].Y)
-                        direction = 0;
+                    if (_snake.Count < 2 || _snake[0].Y == _snake[1].Y)
+                        _direction = 0;
                 }
             }
             pbCanvas.Invalidate();
         }
 
 
-        
         private void UpdateSnake(object sender, EventArgs e)
         {
-            if (!gameover)
+            if (!_gameover)
             {
-                for (int i = snake.Count - 1; i >= 0; i--)
+                for (var i = _snake.Count - 1; i >= 0; i--)
                 {
                     if (i == 0)
                     {
-                        switch (direction)
+                        switch (_direction)
                         {
                             case 0:
-                                snake[0].Y++;
+                                _snake[0].Y++;
                                 break;
                             case 1:
-                                snake[0].X--;
+                                _snake[0].X--;
                                 break;
                             case 2:
-                                snake[0].X++;
+                                _snake[0].X++;
                                 break;
                             case 3:
-                                snake[0].Y--;
+                                _snake[0].Y--;
                                 break;
                         }
 
                         // Check for out of boounds
-                        int max_tile_w = pbCanvas.Size.Width / tile_width;
-                        int max_tile_h = pbCanvas.Size.Height / tile_height;
-                        SnakePart head = snake[0];
-                        if (head.X >= max_tile_w || head.X < 0 || head.Y >= max_tile_h || head.Y < 0)
+                        var maxTileW = pbCanvas.Size.Width/TileWidth;
+                        var maxTileH = pbCanvas.Size.Height/TileHeight;
+                        var head = _snake[0];
+                        if (head.X >= maxTileW || head.X < 0 || head.Y >= maxTileH || head.Y < 0)
                             GameOver();
 
                         // Check for collision with body
-                        for (int j = 1; j < snake.Count; j++)
-                            if (head.X == snake[j].X && head.Y == snake[j].Y)
+                        for (var j = 1; j < _snake.Count; j++)
+                            if (head.X == _snake[j].X && head.Y == _snake[j].Y)
                                 GameOver();
 
-                        // Check for collision with food
-                        if (head.X == food.X && head.Y == food.Y)
+                        // Check for collision with _food
+                        if (head.X == _food.X && head.Y == _food.Y)
                         {
                             PlaySoundFromResource();
-                            int xcor = 0; // corecct X, + 1 or -1
-                            int ycor = 0; // corecct X, + 1 or -1
-                            switch (cor)
+                            var xcor = 0; // corecct X, + 1 or -1
+                            var ycor = 0; // corecct X, + 1 or -1
+                            switch (_cor)
                             {
                                 case 1:
                                     xcor = 1;
@@ -252,191 +243,175 @@ namespace SnakeFirst
                                     xcor = -1;
                                     break;
                                 case 3:
-                                    ycor = + 1;
+                                    ycor = +1;
                                     break;
                                 case 0:
-                                    ycor = - 1;
+                                    ycor = -1;
                                     break;
                             }
-                            SnakePart part = new SnakePart(snake[snake.Count - 1].X + xcor , snake[snake.Count - 1].Y + ycor  );
-                            snake.Add(part);
-                            
-                            GenerateFood();
-                            score++;
-                           
-                        }
+                            var part = new SnakePart(_snake[_snake.Count - 1].X + xcor,
+                                _snake[_snake.Count - 1].Y + ycor);
+                            _snake.Add(part);
 
+                            GenerateFood();
+                            _score++;
+                        }
                     }
                     else
                     {
-                        snake[i].X = snake[i - 1].X;
-                        snake[i].Y = snake[i - 1].Y;
+                        _snake[i].X = _snake[i - 1].X;
+                        _snake[i].Y = _snake[i - 1].Y;
                     }
                 }
-
             }
-
         }
 
         private void Draw(Graphics canvas)
         {
-            Font font = this.Font;
-            if (gameover || !sGame)
+            if (_gameover || !_sGame)
             {
-                
-                Rectangle recf = new Rectangle(125, 1, 600, 500);
-                canvas.DrawImage(Properties.Resources.Snake_final, recf);
-
-
+                var recf = new Rectangle(125, 1, 600, 500);
+                canvas.DrawImage(Resources.Snake_final, recf);
             }
             else
             {
-                LScore.Text =" Score: " +  score.ToString();
-             
-                for (int i = 0; i < snake.Count; i++)
+                LScore.Text = Resources.formGame_Draw__Score__ + _score;
+
+                for (var i = 0; i < _snake.Count; i++)
                 {
-                    SnakePart segment = snake[i];
-                    
+                    var segment = _snake[i];
+
                     var segx = segment.X;
                     var segy = segment.Y;
-                    var tilex = segment.X*tile_width;
-                    var tiley = segment.Y*tile_height;
+                    var tilex = segment.X*TileWidth;
+                    var tiley = segment.Y*TileHeight;
 
-                    
 
-                     
                     if (i == 0)
                     {
                         // Head; Determine the correct image
-                        var nseg = snake[i + 1]; // Next segment
+                        var nseg = _snake[i + 1]; // Next segment
                         if (segy < nseg.Y)
                         {
                             // Up
-                            tx = 3;
-                            ty = 0;
+                            _tx = 3;
+                            _ty = 0;
                         }
                         else if (segx > nseg.X)
                         {
                             // Right
-                            tx = 4;
-                            ty = 0;
+                            _tx = 4;
+                            _ty = 0;
                         }
                         else if (segy > nseg.Y)
                         {
                             // Down
-                            tx = 4;
-                            ty = 1;
+                            _tx = 4;
+                            _ty = 1;
                         }
                         else if (segx < nseg.X)
                         {
                             // Left
-                            tx = 3;
-                            ty = 1;
+                            _tx = 3;
+                            _ty = 1;
                         }
                     }
-                    else if (i == snake.Count - 1)
+                    else if (i == _snake.Count - 1)
                     {
                         // Tail; Determine the correct image
-                        var pseg = snake[i - 1]; // Prev segment
+                        var pseg = _snake[i - 1]; // Prev segment
                         if (pseg.Y < segy)
                         {
                             // Up
-                            tx = 3;
-                            ty = 2;
-                            cor = 3;
+                            _tx = 3;
+                            _ty = 2;
+                            _cor = 3;
                         }
                         else if (pseg.X > segx)
                         {
                             // Right
-                            tx = 4;
-                            ty = 2;
-                            cor = 2;
+                            _tx = 4;
+                            _ty = 2;
+                            _cor = 2;
                         }
                         else if (pseg.Y > segy)
                         {
                             // Down
-                            tx = 4;
-                            ty = 3;
-                            cor = 0;
+                            _tx = 4;
+                            _ty = 3;
+                            _cor = 0;
                         }
                         else if (pseg.X < segx)
                         {
                             // Left
-                            tx = 3;
-                            ty = 3;
-                            cor = 1;
+                            _tx = 3;
+                            _ty = 3;
+                            _cor = 1;
                         }
                     }
 
                     else
                     {
                         // Body; Determine the correct image
-                        var pseg = snake[i - 1]; // Previous segment
-                        var nseg = snake[i + 1]; // Next segment
+                        var pseg = _snake[i - 1]; // Previous segment
+                        var nseg = _snake[i + 1]; // Next segment
                         if (pseg.X < segx && nseg.X > segx || nseg.X < segx && pseg.X > segx)
                         {
                             // Horizontal Left-Right
-                            tx = 1;
-                            ty = 0;
+                            _tx = 1;
+                            _ty = 0;
                         }
                         else if (pseg.X < segx && nseg.Y > segy || nseg.X < segx && pseg.Y > segy)
                         {
                             // Angle Left-Down
-                            tx = 2;
-                            ty = 0;
+                            _tx = 2;
+                            _ty = 0;
                         }
                         else if (pseg.Y < segy && nseg.Y > segy || nseg.Y < segy && pseg.Y > segy)
                         {
                             // Vertical Up-Down
-                            tx = 2;
-                            ty = 1;
+                            _tx = 2;
+                            _ty = 1;
                         }
                         else if (pseg.Y < segy && nseg.X < segx || nseg.Y < segy && pseg.X < segx)
                         {
                             // Angle Top-Left
-                            tx = 2;
-                            ty = 2;
+                            _tx = 2;
+                            _ty = 2;
                         }
                         else if (pseg.X > segx && nseg.Y < segy || nseg.X > segx && pseg.Y < segy)
                         {
                             // Angle Right-Up
-                            tx = 0;
-                            ty = 1;
+                            _tx = 0;
+                            _ty = 1;
                         }
                         else if (pseg.Y > segy && nseg.X > segx || nseg.Y > segy && pseg.X > segx)
                         {
                             // Angle Down-Right
-                            tx = 0;
-                            ty = 0;
+                            _tx = 0;
+                            _ty = 0;
                         }
-
-                        
                     }
-                    Rectangle rec = new Rectangle(tx * 64, ty * 64, 64, 64);
-                    
-                    canvas.DrawImage(Properties.Resources.snake_graphics1.Clone(rec, System.Drawing.Imaging.PixelFormat.Format32bppArgb), tilex, tiley, tile_width, tile_height);
+                    var rec = new Rectangle(_tx*64, _ty*64, 64, 64);
 
-                    
+                    canvas.DrawImage(Resources.snake_graphics1.Clone(rec, PixelFormat.Format32bppArgb), tilex, tiley,
+                        TileWidth, TileHeight);
                 }
-                Rectangle recf = new Rectangle(0 * 64, 3 * 64, 64, 64);
-                canvas.DrawImage(Properties.Resources.snake_graphics1.Clone(recf, System.Drawing.Imaging.PixelFormat.Format32bppArgb), food.X * tile_width, food.Y * tile_height, tile_width, tile_height);
-
-                
+                var recf = new Rectangle(0*64, 3*64, 64, 64);
+                canvas.DrawImage(Resources.snake_graphics1.Clone(recf, PixelFormat.Format32bppArgb), _food.X*TileWidth,
+                    _food.Y*TileHeight, TileWidth, TileHeight);
             }
-            
         }
 
 
         private
             void GameOver()
         {
-            gameover = true;
-            DataRecords.Score = score.ToString();
+            _gameover = true;
+            DataRecords.Score = _score.ToString();
             new PlayerInfo().ShowDialog();
-
         }
 
-        
         #endregion
 
         private void extToolStripMenuItem_Click(object sender, EventArgs e)
@@ -451,7 +426,6 @@ namespace SnakeFirst
 
         private void pbCanvas_Click(object sender, EventArgs e)
         {
-
         }
 
         private void recordsToolStripMenuItem_Click(object sender, EventArgs e)
