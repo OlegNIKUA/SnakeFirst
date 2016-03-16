@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
@@ -25,19 +26,15 @@ namespace SnakeFirst
         Timer gameLoop = new Timer();
         Timer snakeLoop = new Timer();
         Timer time = new Timer();
-        float snakeRate = 2.0f;
+        float snakeRate = 1;
         private int cor = 0;
 
         int tx = 0;
         int ty = 0;
+        private bool sGame;
         #endregion
 
-        #region Image
-        Image ball;
-        
-        #endregion
-
-
+  
         public formGame()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
@@ -51,10 +48,10 @@ namespace SnakeFirst
             snakeLoop.Interval = (int) (1000 / snakeRate);
             gameLoop.Start();
             snakeLoop.Start();
+            sGame = false;
 
-            //time.Interval = 10;
-            //time.Tick += new EventHandler(tickTimer);
-            StartGame();
+
+            
         }
         #endregion
 
@@ -63,7 +60,10 @@ namespace SnakeFirst
         private void formGame_KeyDown(object sender, KeyEventArgs e)
         {
             Input.ChangeState(e.KeyCode, true);
-
+            if (e.KeyCode == Keys.Enter)
+            {
+                StartGame();
+            }
         }
 
         private void formGame_KeyUp(object sender, KeyEventArgs e)
@@ -80,9 +80,17 @@ namespace SnakeFirst
         #endregion
 
         #region Game Logic
+
+       
         private void StartGame()
         {
-            snakeRate = 2.0f;
+
+            sGame = true;
+            if (TrackBarValue.lvlValue != 0)
+            {
+                snakeRate = TrackBarValue.lvlValue;
+            }
+            
             gameover = false;
             snakeLoop.Interval = (int)(1000 / snakeRate);
             snake.Clear();
@@ -94,11 +102,15 @@ namespace SnakeFirst
             snake.Add(new SnakePart(8, 8));
             snake.Add(new SnakePart(7, 8));
             GenerateFood();
+
+            
         }
 
-        private void tickTimer(object sender, EventArgs e)
+        private void playSoundFromResource()
         {
-            
+            System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
+            SoundPlayer player = new SoundPlayer("apple.wav");
+            player.Play();
         }
         private void GenerateFood()
         {
@@ -214,6 +226,7 @@ namespace SnakeFirst
                         // Check for collision with food
                         if (head.X == food.X && head.Y == food.Y)
                         {
+                            playSoundFromResource();
                             int xcor = 0; // corecct X, + 1 or -1
                             int ycor = 0; // corecct X, + 1 or -1
                             switch (cor)
@@ -236,11 +249,7 @@ namespace SnakeFirst
                             
                             GenerateFood();
                             score++;
-                            if(snakeRate < 30)
-                            {
-                                snakeRate++;
-                                snakeLoop.Interval = (int) (1000 / snakeRate);
-                            }
+                           
                         }
 
                     }
@@ -258,16 +267,9 @@ namespace SnakeFirst
         private void Draw(Graphics canvas)
         {
             Font font = this.Font;
-            if (gameover)
+            if (gameover || !sGame)
             {
-                //SizeF message = canvas.MeasureString("Gameover", font);
-                //canvas.DrawString("Gameover", font, Brushes.White, new PointF(160 - message.Width/2, 100));
-                //message = canvas.MeasureString("Final Score" + score.ToString(), font);
-                //canvas.DrawString("Final Score " + score.ToString(), font, Brushes.White,
-                //    new PointF(160 - message.Width/2, 120));
-                //message = canvas.MeasureString("Press Enter to Start a New Game", font);
-                //canvas.DrawString("Press Enter to Start a New Game", font, Brushes.White,
-                //    new PointF(160 - message.Width/2, 140));
+                
                 Rectangle recf = new Rectangle(125, 1, 600, 500);
                 canvas.DrawImage(Properties.Resources.Snake_final, recf);
 
@@ -276,7 +278,7 @@ namespace SnakeFirst
             else
             {
                 LScore.Text =" Score: " +  score.ToString();
-              //  canvas.DrawString("Score " + score.ToString(), font, Brushes.Black, new PointF(4, 4));
+             
                 for (int i = 0; i < snake.Count; i++)
                 {
                     SnakePart segment = snake[i];
@@ -415,6 +417,9 @@ namespace SnakeFirst
             void GameOver()
         {
             gameover = true;
+            DataRecords.Score = score.ToString();
+            new PlayerInfo().ShowDialog();
+
         }
 
         
@@ -433,6 +438,16 @@ namespace SnakeFirst
         private void pbCanvas_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void recordsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Records().ShowDialog();
+        }
+
+        private void складністьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new level().ShowDialog();
         }
     }
 }
