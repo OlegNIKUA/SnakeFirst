@@ -17,22 +17,37 @@ namespace SnakeFirst
         #region Variables
 
         private int _score;
+
         private bool _gameover;
+
         private int _direction = 2; // 0 = down, 1 = left, 2 = right, 3 = up
+
         private readonly List<SnakePart> _snake = new List<SnakePart>();
+
+        private readonly List<SnakePart> _bombList = new List<SnakePart>();
+
         private const int TileWidth = 32;
         private const int TileHeight = 32;
+
         private SnakePart _food;
+        private SnakePart _bomb;
+
         private readonly Timer _gameLoop = new Timer();
         private readonly Timer _snakeLoop = new Timer();
         private Timer _time = new Timer();
-        private float _snakeRate = 1;
+
+        private float _snakeRate = 2;
+
         private int _cor;
 
         private int _tx;
         private int _ty;
+
         private bool _sGame;
+
         private MediaPlayer _fSound;
+        private int _n;
+
 
         #endregion
 
@@ -85,22 +100,25 @@ namespace SnakeFirst
         private void StartGame()
         {
             _sGame = true;
-            if (TrackBarValue.LvlValue != 0)
-            {
-                _snakeRate = TrackBarValue.LvlValue;
-            }
+           
 
             _gameover = false;
+            _snakeRate = 2;
             _snakeLoop.Interval = (int) (1000/_snakeRate);
             _snake.Clear();
             _direction = 2;
             _score = 0;
+
+            _bombList.Clear();
             var head = new SnakePart(10, 8);
             _snake.Add(head);
             _snake.Add(new SnakePart(9, 8));
             _snake.Add(new SnakePart(8, 8));
             _snake.Add(new SnakePart(7, 8));
-            GenerateFood();
+           
+
+            GenerateFoodandBomb();
+            
         }
 
         #region Music
@@ -112,49 +130,112 @@ namespace SnakeFirst
             _fSound.Play();
         }
 
-        private static void PlaySoundFromResource()
+        private static void PlaySoundFromResourceApple()
         {
             Assembly.GetExecutingAssembly();
             var playersSoundPlayer = new SoundPlayer("apple.wav");
             playersSoundPlayer.Play();
         }
 
-        private void GenerateFood()
+        private static void PlaySoundFromResourceBomb()
         {
+            Assembly.GetExecutingAssembly();
+            var playersSoundPlayer = new SoundPlayer("bomb.wav");
+            playersSoundPlayer.Play();
+            
+        }
+        #endregion
+        private void GenerateFoodandBomb()
+        {
+           
             var maxTileW = pbCanvas.Size.Width/TileWidth;
             var maxTileH = pbCanvas.Size.Height/TileHeight;
 
 
-            var valid = false;
-            while (!valid)
-            {
-                var random = new Random();
-                var ax = random.Next(0, maxTileW);
-                var ay = random.Next(0, maxTileH);
-                _food = new SnakePart(ax, ay);
-                var overlap = false;
-                for (var i = 0; i > _snake.Count - 1; i++)
+            _n = 0;
+            
+                var valid = false;
+                while (!valid)
                 {
-                    var sx = _snake[i].X;
-                    var sy = _snake[i].Y;
+                    var random = new Random();
+                    var fx = random.Next(0, maxTileW);
+                    var fy = random.Next(0, maxTileH);
+
+                    var bx = random.Next(0, maxTileW);
+                    var by = random.Next(0, maxTileH);
+
+                    var b2x = random.Next(0, maxTileW);
+                    var b2y = random.Next(0, maxTileH);
+
+                    var b3x = random.Next(0, maxTileW);
+                    var b3y = random.Next(0, maxTileH);
+
+                var overlap = false;
+                    for (var i = 0; i < _snake.Count - 1; i++)
+                    {
+                        var sx = _snake[i].X;
+                        var sy = _snake[i].Y;
 
 
-                    if (ax == sx && ay == sy)
+                        if ((fx == sx && fy == sy) || (bx == sx && by == sy) || (b2x == sx && b2y == sy) || (b3x == sx && b3y == sy))
+                        {
+                            overlap = true;
+                            break;
+                        }
+
+                    }
+                for (var q = 0; q < _bombList.Count -1 ; q++)
+                {
+                    var qx = _bombList[q].X;
+                    var qy = _bombList[q].Y;
+
+
+                    if ((fx == qx && fy == qy))
                     {
                         overlap = true;
                         break;
                     }
-                }
 
-                if (!overlap)
-                {
-                    _food = new SnakePart(ax, ay);
-                    valid = true;
                 }
-            }
+                if (!overlap)
+                    {
+
+                    _food = new SnakePart(fx, fy);
+                    _bomb = new SnakePart(bx, by);
+                    if (складнийToolStripMenuItem.Checked)
+                    {
+                       
+
+                        _bombList.Add(_bomb);
+                        _bombList.Add(new SnakePart(b2x, b2y));
+                        _bombList.Add(new SnakePart(b3x, b3y));
+
+                    }
+                    if (середнійToolStripMenuItem.Checked) {
+                        
+                    _bombList.Add(new SnakePart(b2x, b2y));
+                        _bombList.Add(_bomb);
+                    }
+                    if (легкийToolStripMenuItem.Checked)
+                    {
+                        
+
+                        _bombList.Add(_bomb);
+
+                    }
+                    
+
+
+                    valid = true;
+                    }
+                }
+            
+            
+
+
         }
 
-        #endregion
+        
 
         private void Update(object sender, EventArgs e)
         {
@@ -217,23 +298,35 @@ namespace SnakeFirst
                         }
 
                         // Check for out of boounds
-                        var maxTileW = pbCanvas.Size.Width/TileWidth;
-                        var maxTileH = pbCanvas.Size.Height/TileHeight;
+                        var maxTileW = pbCanvas.Size.Width / TileWidth;
+                        var maxTileH = pbCanvas.Size.Height / TileHeight;
                         var head = _snake[0];
                         if (head.X >= maxTileW || head.X < 0 || head.Y >= maxTileH || head.Y < 0)
                             GameOver();
 
                         // Check for collision with body
                         for (var j = 1; j < _snake.Count; j++)
+                        {
                             if (head.X == _snake[j].X && head.Y == _snake[j].Y)
                                 GameOver();
+                        }
 
-                        // Check for collision with _food
-                        if (head.X == _food.X && head.Y == _food.Y)
+                        // Check for collision with BOMBs
+                        foreach (SnakePart _bomb_chk in _bombList) { 
+                        if (head.X == _bomb_chk.X && head.Y == _bomb_chk.Y)
                         {
-                            PlaySoundFromResource();
-                            var xcor = 0; // corecct X, + 1 or -1
-                            var ycor = 0; // corecct X, + 1 or -1
+                                PlaySoundFromResourceBomb();
+                                
+                            GameOver();
+                        }
+                    }
+
+                            // Check for collision with _food
+                            if (head.X == _food.X && head.Y == _food.Y)
+                        {
+                            PlaySoundFromResourceApple();
+                            var xcor = 0; // corecct x, + 1 or -1
+                            var ycor = 0; // corecct x, + 1 or -1
                             switch (_cor)
                             {
                                 case 1:
@@ -253,8 +346,29 @@ namespace SnakeFirst
                                 _snake[_snake.Count - 1].Y + ycor);
                             _snake.Add(part);
 
-                            GenerateFood();
-                            _score++;
+                            GenerateFoodandBomb();
+
+                            if (складнийToolStripMenuItem.Checked)
+                            {
+                                _score=_score + 3;
+                            }
+
+                            if (середнійToolStripMenuItem.Checked)
+                            {
+                                _score = _score + 2;
+                            }
+
+                            if (легкийToolStripMenuItem.Checked)
+                            {
+                                _score++;
+                            }
+
+                            if (_snakeRate < 30)
+                            {
+                                _snakeRate++;
+                                _snakeLoop.Interval = (int) (1000 / _snakeRate);
+
+                            }
                         }
                     }
                     else
@@ -397,9 +511,19 @@ namespace SnakeFirst
                     canvas.DrawImage(Resources.snake_graphics1.Clone(rec, PixelFormat.Format32bppArgb), tilex, tiley,
                         TileWidth, TileHeight);
                 }
-                var recf = new Rectangle(0*64, 3*64, 64, 64);
-                canvas.DrawImage(Resources.snake_graphics1.Clone(recf, PixelFormat.Format32bppArgb), _food.X*TileWidth,
-                    _food.Y*TileHeight, TileWidth, TileHeight);
+
+                var recf = new Rectangle(0 * 64, 3 * 64, 64, 64);
+                canvas.DrawImage(Resources.snake_graphics1.Clone(recf, PixelFormat.Format32bppArgb), _food.X * TileWidth,
+                    _food.Y * TileHeight, TileWidth, TileHeight);
+
+
+                foreach (SnakePart bombs in _bombList)
+                {
+                    var recf2 = new Rectangle(0, 0, 64, 64);
+                    canvas.DrawImage(Resources.Bomb64.Clone(recf2, PixelFormat.Format32bppArgb), bombs.X * TileWidth,
+                        bombs.Y * TileHeight, TileWidth, TileHeight);
+                }
+                
             }
         }
 
@@ -433,9 +557,22 @@ namespace SnakeFirst
             new Records().ShowDialog();
         }
 
-        private void складністьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void легкийToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new level().ShowDialog();
+            середнійToolStripMenuItem.CheckState = CheckState.Unchecked;
+            складнийToolStripMenuItem.CheckState = CheckState.Unchecked;
+        }
+
+        private void середнійToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            легкийToolStripMenuItem.CheckState = CheckState.Unchecked;
+            складнийToolStripMenuItem.CheckState = CheckState.Unchecked;
+        }
+
+        private void складнийToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            легкийToolStripMenuItem.CheckState = CheckState.Unchecked;
+            середнійToolStripMenuItem.CheckState = CheckState.Unchecked;
         }
     }
 }
