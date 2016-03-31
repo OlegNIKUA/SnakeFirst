@@ -61,6 +61,16 @@ namespace SnakeFirst.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Bomb64 {
+            get {
+                object obj = ResourceManager.GetObject("Bomb64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на  Score: .
         /// </summary>
         internal static string formGame_Draw__Score__ {
