@@ -39,9 +39,9 @@
             this.легкийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.середнійToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.складнийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.правилаГриToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LScore = new System.Windows.Forms.Label();
             this.pbCanvas = new System.Windows.Forms.PictureBox();
-            this.правилаГриToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).BeginInit();
             this.SuspendLayout();
@@ -50,8 +50,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.складністьToolStripMenuItem1,
-            this.правилаГриToolStripMenuItem});
+            this.правилаГриToolStripMenuItem,
+            this.складністьToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(832, 24);
@@ -131,6 +131,13 @@
             this.складнийToolStripMenuItem.Text = "Складний";
             this.складнийToolStripMenuItem.Click += new System.EventHandler(this.складнийToolStripMenuItem_Click);
             // 
+            // правилаГриToolStripMenuItem
+            // 
+            this.правилаГриToolStripMenuItem.Name = "правилаГриToolStripMenuItem";
+            this.правилаГриToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.правилаГриToolStripMenuItem.Text = "Правила гри";
+            this.правилаГриToolStripMenuItem.Click += new System.EventHandler(this.правилаГриToolStripMenuItem_Click);
+            // 
             // LScore
             // 
             this.LScore.AutoSize = true;
@@ -152,13 +159,6 @@
             this.pbCanvas.TabStop = false;
             this.pbCanvas.Click += new System.EventHandler(this.pbCanvas_Click);
             this.pbCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pbCanvas_Paint);
-            // 
-            // правилаГриToolStripMenuItem
-            // 
-            this.правилаГриToolStripMenuItem.Name = "правилаГриToolStripMenuItem";
-            this.правилаГриToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
-            this.правилаГриToolStripMenuItem.Text = "Правила гри";
-            this.правилаГриToolStripMenuItem.Click += new System.EventHandler(this.правилаГриToolStripMenuItem_Click);
             // 
             // FormGame
             // 
