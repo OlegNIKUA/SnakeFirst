@@ -88,6 +88,12 @@
     <Compile Include="Records.Designer.cs">
       <DependentUpon>Records.cs</DependentUpon>
     </Compile>
+    <Compile Include="rules.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="rules.Designer.cs">
+      <DependentUpon>rules.cs</DependentUpon>
+    </Compile>
     <Compile Include="SnakePart.cs" />
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
@@ -110,6 +116,9 @@
     </Compile>
     <EmbeddedResource Include="Records.resx">
       <DependentUpon>Records.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rules.resx">
+      <DependentUpon>rules.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -185,6 +194,57 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Bomb64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\strelki.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\apple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gra.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gra1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uprav.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gra2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uprav1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gra3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pravila.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pravila1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pravila2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\record.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Snake.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copyright.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

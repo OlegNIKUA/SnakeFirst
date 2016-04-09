@@ -574,5 +574,11 @@ namespace SnakeFirst
             легкийToolStripMenuItem.CheckState = CheckState.Unchecked;
             середнійToolStripMenuItem.CheckState = CheckState.Unchecked;
         }
+
+        private void правилаГриToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new rules().ShowDialog();
+
+        }
     }
 }
