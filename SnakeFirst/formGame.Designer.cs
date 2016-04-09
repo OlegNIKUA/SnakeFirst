@@ -41,6 +41,7 @@
             this.складнийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LScore = new System.Windows.Forms.Label();
             this.pbCanvas = new System.Windows.Forms.PictureBox();
+            this.правилаГриToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).BeginInit();
             this.SuspendLayout();
@@ -49,7 +50,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.складністьToolStripMenuItem1});
+            this.складністьToolStripMenuItem1,
+            this.правилаГриToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(832, 24);
@@ -109,7 +111,7 @@
             this.легкийToolStripMenuItem.CheckOnClick = true;
             this.легкийToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.легкийToolStripMenuItem.Name = "легкийToolStripMenuItem";
-            this.легкийToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.легкийToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.легкийToolStripMenuItem.Text = "Легкий";
             this.легкийToolStripMenuItem.Click += new System.EventHandler(this.легкийToolStripMenuItem_Click);
             // 
@@ -117,7 +119,7 @@
             // 
             this.середнійToolStripMenuItem.CheckOnClick = true;
             this.середнійToolStripMenuItem.Name = "середнійToolStripMenuItem";
-            this.середнійToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.середнійToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.середнійToolStripMenuItem.Text = "Середній";
             this.середнійToolStripMenuItem.Click += new System.EventHandler(this.середнійToolStripMenuItem_Click);
             // 
@@ -125,7 +127,7 @@
             // 
             this.складнийToolStripMenuItem.CheckOnClick = true;
             this.складнийToolStripMenuItem.Name = "складнийToolStripMenuItem";
-            this.складнийToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.складнийToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.складнийToolStripMenuItem.Text = "Складний";
             this.складнийToolStripMenuItem.Click += new System.EventHandler(this.складнийToolStripMenuItem_Click);
             // 
@@ -150,6 +152,13 @@
             this.pbCanvas.TabStop = false;
             this.pbCanvas.Click += new System.EventHandler(this.pbCanvas_Click);
             this.pbCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pbCanvas_Paint);
+            // 
+            // правилаГриToolStripMenuItem
+            // 
+            this.правилаГриToolStripMenuItem.Name = "правилаГриToolStripMenuItem";
+            this.правилаГриToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.правилаГриToolStripMenuItem.Text = "Правила гри";
+            this.правилаГриToolStripMenuItem.Click += new System.EventHandler(this.правилаГриToolStripMenuItem_Click);
             // 
             // FormGame
             // 
@@ -190,5 +199,6 @@
         private System.Windows.Forms.ToolStripMenuItem середнійToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem складнийToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem складністьToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem правилаГриToolStripMenuItem;
     }
 }
