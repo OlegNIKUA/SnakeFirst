@@ -35,11 +35,11 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hrToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.extToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.складністьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.легкийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.середнійToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.складнийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.правилаГриToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.складністьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.easyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mediumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LScore = new System.Windows.Forms.Label();
             this.pbCanvas = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
@@ -95,48 +95,48 @@
             this.extToolStripMenuItem.Text = "Вийти";
             this.extToolStripMenuItem.Click += new System.EventHandler(this.extToolStripMenuItem_Click);
             // 
-            // складністьToolStripMenuItem1
-            // 
-            this.складністьToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.легкийToolStripMenuItem,
-            this.середнійToolStripMenuItem,
-            this.складнийToolStripMenuItem});
-            this.складністьToolStripMenuItem1.Name = "складністьToolStripMenuItem1";
-            this.складністьToolStripMenuItem1.Size = new System.Drawing.Size(79, 20);
-            this.складністьToolStripMenuItem1.Text = "Складність";
-            // 
-            // легкийToolStripMenuItem
-            // 
-            this.легкийToolStripMenuItem.Checked = true;
-            this.легкийToolStripMenuItem.CheckOnClick = true;
-            this.легкийToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.легкийToolStripMenuItem.Name = "легкийToolStripMenuItem";
-            this.легкийToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-            this.легкийToolStripMenuItem.Text = "Легкий";
-            this.легкийToolStripMenuItem.Click += new System.EventHandler(this.легкийToolStripMenuItem_Click);
-            // 
-            // середнійToolStripMenuItem
-            // 
-            this.середнійToolStripMenuItem.CheckOnClick = true;
-            this.середнійToolStripMenuItem.Name = "середнійToolStripMenuItem";
-            this.середнійToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-            this.середнійToolStripMenuItem.Text = "Середній";
-            this.середнійToolStripMenuItem.Click += new System.EventHandler(this.середнійToolStripMenuItem_Click);
-            // 
-            // складнийToolStripMenuItem
-            // 
-            this.складнийToolStripMenuItem.CheckOnClick = true;
-            this.складнийToolStripMenuItem.Name = "складнийToolStripMenuItem";
-            this.складнийToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-            this.складнийToolStripMenuItem.Text = "Складний";
-            this.складнийToolStripMenuItem.Click += new System.EventHandler(this.складнийToolStripMenuItem_Click);
-            // 
             // правилаГриToolStripMenuItem
             // 
             this.правилаГриToolStripMenuItem.Name = "правилаГриToolStripMenuItem";
             this.правилаГриToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
             this.правилаГриToolStripMenuItem.Text = "Правила гри";
-            this.правилаГриToolStripMenuItem.Click += new System.EventHandler(this.правилаГриToolStripMenuItem_Click);
+            this.правилаГриToolStripMenuItem.Click += new System.EventHandler(this.rulesToolStripMenuItem_Click);
+            // 
+            // складністьToolStripMenuItem1
+            // 
+            this.складністьToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.easyToolStripMenuItem,
+            this.mediumToolStripMenuItem,
+            this.hardToolStripMenuItem});
+            this.складністьToolStripMenuItem1.Name = "складністьToolStripMenuItem1";
+            this.складністьToolStripMenuItem1.Size = new System.Drawing.Size(79, 20);
+            this.складністьToolStripMenuItem1.Text = "Складність";
+            // 
+            // easyToolStripMenuItem
+            // 
+            this.easyToolStripMenuItem.Checked = true;
+            this.easyToolStripMenuItem.CheckOnClick = true;
+            this.easyToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.easyToolStripMenuItem.Name = "easyToolStripMenuItem";
+            this.easyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.easyToolStripMenuItem.Text = "Легкий";
+            this.easyToolStripMenuItem.Click += new System.EventHandler(this.easyToolStripMenuItem_Click);
+            // 
+            // mediumToolStripMenuItem
+            // 
+            this.mediumToolStripMenuItem.CheckOnClick = true;
+            this.mediumToolStripMenuItem.Name = "mediumToolStripMenuItem";
+            this.mediumToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.mediumToolStripMenuItem.Text = "Середній";
+            this.mediumToolStripMenuItem.Click += new System.EventHandler(this.mediumToolStripMenuItem_Click);
+            // 
+            // hardToolStripMenuItem
+            // 
+            this.hardToolStripMenuItem.CheckOnClick = true;
+            this.hardToolStripMenuItem.Name = "hardToolStripMenuItem";
+            this.hardToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hardToolStripMenuItem.Text = "Складний";
+            this.hardToolStripMenuItem.Click += new System.EventHandler(this.hardToolStripMenuItem_Click);
             // 
             // LScore
             // 
@@ -195,9 +195,9 @@
         private System.Windows.Forms.ToolStripMenuItem extToolStripMenuItem;
         private System.Windows.Forms.Label LScore;
         private System.Windows.Forms.ToolStripMenuItem recordsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem легкийToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem середнійToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem складнийToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem easyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mediumToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem складністьToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem правилаГриToolStripMenuItem;
     }

@@ -202,7 +202,7 @@ namespace SnakeFirst
 
                     _food = new SnakePart(fx, fy);
                     _bomb = new SnakePart(bx, by);
-                    if (складнийToolStripMenuItem.Checked)
+                    if (hardToolStripMenuItem.Checked)
                     {
                        
 
@@ -211,12 +211,12 @@ namespace SnakeFirst
                         _bombList.Add(new SnakePart(b3x, b3y));
 
                     }
-                    if (середнійToolStripMenuItem.Checked) {
+                    if (mediumToolStripMenuItem.Checked) {
                         
                     _bombList.Add(new SnakePart(b2x, b2y));
                         _bombList.Add(_bomb);
                     }
-                    if (легкийToolStripMenuItem.Checked)
+                    if (easyToolStripMenuItem.Checked)
                     {
                         
 
@@ -348,17 +348,17 @@ namespace SnakeFirst
 
                             GenerateFoodandBomb();
 
-                            if (складнийToolStripMenuItem.Checked)
+                            if (hardToolStripMenuItem.Checked)
                             {
                                 _score=_score + 3;
                             }
 
-                            if (середнійToolStripMenuItem.Checked)
+                            if (mediumToolStripMenuItem.Checked)
                             {
                                 _score = _score + 2;
                             }
 
-                            if (легкийToolStripMenuItem.Checked)
+                            if (easyToolStripMenuItem.Checked)
                             {
                                 _score++;
                             }
@@ -557,25 +557,25 @@ namespace SnakeFirst
             new Records().ShowDialog();
         }
 
-        private void легкийToolStripMenuItem_Click(object sender, EventArgs e)
+        private void easyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            середнійToolStripMenuItem.CheckState = CheckState.Unchecked;
-            складнийToolStripMenuItem.CheckState = CheckState.Unchecked;
+            mediumToolStripMenuItem.CheckState = CheckState.Unchecked;
+            hardToolStripMenuItem.CheckState = CheckState.Unchecked;
         }
 
-        private void середнійToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mediumToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            легкийToolStripMenuItem.CheckState = CheckState.Unchecked;
-            складнийToolStripMenuItem.CheckState = CheckState.Unchecked;
+            easyToolStripMenuItem.CheckState = CheckState.Unchecked;
+            hardToolStripMenuItem.CheckState = CheckState.Unchecked;
         }
 
-        private void складнийToolStripMenuItem_Click(object sender, EventArgs e)
+        private void hardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            легкийToolStripMenuItem.CheckState = CheckState.Unchecked;
-            середнійToolStripMenuItem.CheckState = CheckState.Unchecked;
+            easyToolStripMenuItem.CheckState = CheckState.Unchecked;
+            mediumToolStripMenuItem.CheckState = CheckState.Unchecked;
         }
 
-        private void правилаГриToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rulesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new rules().ShowDialog();
 
