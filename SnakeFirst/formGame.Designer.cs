@@ -35,8 +35,8 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hrToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.extToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.правилаГриToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.складністьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.rulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.complexToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.easyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mediumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,8 +50,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.правилаГриToolStripMenuItem,
-            this.складністьToolStripMenuItem1});
+            this.rulesToolStripMenuItem,
+            this.complexToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(832, 24);
@@ -95,22 +95,22 @@
             this.extToolStripMenuItem.Text = "Вийти";
             this.extToolStripMenuItem.Click += new System.EventHandler(this.extToolStripMenuItem_Click);
             // 
-            // правилаГриToolStripMenuItem
+            // rulesToolStripMenuItem
             // 
-            this.правилаГриToolStripMenuItem.Name = "правилаГриToolStripMenuItem";
-            this.правилаГриToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
-            this.правилаГриToolStripMenuItem.Text = "Правила гри";
-            this.правилаГриToolStripMenuItem.Click += new System.EventHandler(this.rulesToolStripMenuItem_Click);
+            this.rulesToolStripMenuItem.Name = "rulesToolStripMenuItem";
+            this.rulesToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.rulesToolStripMenuItem.Text = "Правила гри";
+            this.rulesToolStripMenuItem.Click += new System.EventHandler(this.rulesToolStripMenuItem_Click);
             // 
-            // складністьToolStripMenuItem1
+            // complexToolStripMenuItem1
             // 
-            this.складністьToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.complexToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.easyToolStripMenuItem,
             this.mediumToolStripMenuItem,
             this.hardToolStripMenuItem});
-            this.складністьToolStripMenuItem1.Name = "складністьToolStripMenuItem1";
-            this.складністьToolStripMenuItem1.Size = new System.Drawing.Size(79, 20);
-            this.складністьToolStripMenuItem1.Text = "Складність";
+            this.complexToolStripMenuItem1.Name = "complexToolStripMenuItem1";
+            this.complexToolStripMenuItem1.Size = new System.Drawing.Size(79, 20);
+            this.complexToolStripMenuItem1.Text = "Складність";
             // 
             // easyToolStripMenuItem
             // 
@@ -198,7 +198,7 @@
         private System.Windows.Forms.ToolStripMenuItem easyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mediumToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hardToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem складністьToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem правилаГриToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem complexToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem rulesToolStripMenuItem;
     }
 }
