@@ -133,14 +133,14 @@ namespace SnakeFirst
         private static void PlaySoundFromResourceApple()
         {
             Assembly.GetExecutingAssembly();
-            var playersSoundPlayer = new SoundPlayer("apple.wav");
+            var playersSoundPlayer = new SoundPlayer(Resources.apple1);
             playersSoundPlayer.Play();
         }
 
         private static void PlaySoundFromResourceBomb()
         {
             Assembly.GetExecutingAssembly();
-            var playersSoundPlayer = new SoundPlayer("bomb.wav");
+            var playersSoundPlayer = new SoundPlayer(Resources.bomb);
             playersSoundPlayer.Play();
             
         }
