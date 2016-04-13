@@ -16,7 +16,7 @@ namespace SnakeFirst
 
         #region Variables
 
-        private int _score;
+        private int _score; //score
 
         private bool _gameover;
 
@@ -36,7 +36,7 @@ namespace SnakeFirst
         private readonly Timer _snakeLoop = new Timer();
         private Timer _time = new Timer();
 
-        private float _snakeRate = 2;
+        private float _snakeRate = 2; //speed of Snake
 
         private int _cor;
 
@@ -46,7 +46,7 @@ namespace SnakeFirst
         private bool _sGame;
 
         private MediaPlayer _fSound;
-        private int _n;
+       
 
 
         #endregion
@@ -128,6 +128,9 @@ namespace SnakeFirst
             _fSound = new MediaPlayer();
             _fSound.Open(new Uri("mus.wav", UriKind.Relative));
             _fSound.Play();
+
+
+
         }
 
         private static void PlaySoundFromResourceApple()
@@ -147,16 +150,13 @@ namespace SnakeFirst
         #endregion
         private void GenerateFoodandBomb()
         {
+
+            var maxTileW = pbCanvas.Size.Width / TileWidth; //максимальна длина по ширине
+            var maxTileH = pbCanvas.Size.Height / TileHeight; //максимальна длина по высоте 
            
-            var maxTileW = pbCanvas.Size.Width/TileWidth;
-            var maxTileH = pbCanvas.Size.Height/TileHeight;
-
-
-            _n = 0;
-            
-                var valid = false;
-                while (!valid)
-                {
+            var valid = false;
+                while (!valid)  //цикл до того когда найдется такое значение точок для бомб и яблок, которые не будут пересекаться друг с другом и змейкой
+            {
                     var random = new Random();
                     var fx = random.Next(0, maxTileW);
                     var fy = random.Next(0, maxTileH);
@@ -202,6 +202,7 @@ namespace SnakeFirst
 
                     _food = new SnakePart(fx, fy);
                     _bomb = new SnakePart(bx, by);
+                    //в зависимости от уровня сложности нужно добавить 1,2 или 3 точки бомб
                     if (hardToolStripMenuItem.Checked)
                     {
                        
@@ -237,7 +238,7 @@ namespace SnakeFirst
 
         
 
-        private void Update(object sender, EventArgs e)
+        private void Update(object sender, EventArgs e) //обновление направления змейки
         {
             if (_gameover)
             {
@@ -247,7 +248,7 @@ namespace SnakeFirst
                 }
             }
             else
-            {
+            {//напрвление в зависимости от нажатой клавиши
                 if (Input.Press(Keys.Left))
                 {
                     if (_snake.Count < 2 || _snake[0].X == _snake[1].X)
@@ -269,11 +270,11 @@ namespace SnakeFirst
                         _direction = 0;
                 }
             }
-            pbCanvas.Invalidate();
+            pbCanvas.Invalidate(); //перерисовка
         }
 
 
-        private void UpdateSnake(object sender, EventArgs e)
+        private void UpdateSnake(object sender, EventArgs e) //обновление змейки
         {
             if (!_gameover)
             {
@@ -281,7 +282,7 @@ namespace SnakeFirst
                 {
                     if (i == 0)
                     {
-                        switch (_direction)
+                        switch (_direction) //в зависимости от направление изменяем координаты 
                         {
                             case 0:
                                 _snake[0].Y++;
@@ -315,7 +316,7 @@ namespace SnakeFirst
                         foreach (SnakePart _bomb_chk in _bombList) { 
                         if (head.X == _bomb_chk.X && head.Y == _bomb_chk.Y)
                         {
-                                PlaySoundFromResourceBomb();
+                            PlaySoundFromResourceBomb();
                                 
                             GameOver();
                         }
@@ -344,10 +345,10 @@ namespace SnakeFirst
                             }
                             var part = new SnakePart(_snake[_snake.Count - 1].X + xcor,
                                 _snake[_snake.Count - 1].Y + ycor);
-                            _snake.Add(part);
+                            _snake.Add(part); //костыль
 
                             GenerateFoodandBomb();
-
+                            //в зависомсти от уровня сложности счет добавляется по разному
                             if (hardToolStripMenuItem.Checked)
                             {
                                 _score=_score + 3;
@@ -363,7 +364,7 @@ namespace SnakeFirst
                                 _score++;
                             }
 
-                            if (_snakeRate < 30)
+                            if (_snakeRate < 30) //если меньше 30 то добавляем скорости
                             {
                                 _snakeRate++;
                                 _snakeLoop.Interval = (int) (1000 / _snakeRate);
@@ -371,7 +372,7 @@ namespace SnakeFirst
                             }
                         }
                     }
-                    else
+                    else //если ничего не случилось из выше написаного, то передвигаем змейку
                     {
                         _snake[i].X = _snake[i - 1].X;
                         _snake[i].Y = _snake[i - 1].Y;
@@ -380,9 +381,10 @@ namespace SnakeFirst
             }
         }
 
-        private void Draw(Graphics canvas)
+        private void Draw(Graphics canvas) //отрисовка змейки
         {
-            if (_gameover || !_sGame)
+
+            if (_gameover || !_sGame) //если проиграл либо начало игры то отрисовываем картиночку
             {
                 var recf = new Rectangle(125, 1, 600, 500);
                 canvas.DrawImage(Resources.Snake_final, recf);
@@ -391,7 +393,7 @@ namespace SnakeFirst
             {
                 LScore.Text = Resources.formGame_Draw__Score__ + _score;
 
-                for (var i = 0; i < _snake.Count; i++)
+                for (var i = 0; i < _snake.Count; i++) //отрисовка каждого сегмента из спрайта
                 {
                     var segment = _snake[i];
 
@@ -528,8 +530,7 @@ namespace SnakeFirst
         }
 
 
-        private
-            void GameOver()
+        private void GameOver()
         {
             _gameover = true;
             DataRecords.Score = _score.ToString();
@@ -537,7 +538,7 @@ namespace SnakeFirst
         }
 
         #endregion
-
+        #region ToolStripMenu
         private void extToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
@@ -546,10 +547,6 @@ namespace SnakeFirst
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new About().ShowDialog();
-        }
-
-        private void pbCanvas_Click(object sender, EventArgs e)
-        {
         }
 
         private void recordsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -580,5 +577,6 @@ namespace SnakeFirst
             new rules().ShowDialog();
 
         }
+        #endregion
     }
 }
