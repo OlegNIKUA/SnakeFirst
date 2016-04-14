@@ -130,9 +130,9 @@ namespace SnakeFirst.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap gra {
+        internal static System.Drawing.Bitmap gra1 {
             get {
-                object obj = ResourceManager.GetObject("gra", resourceCulture);
+                object obj = ResourceManager.GetObject("gra1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
